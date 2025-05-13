@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeorchestrator
+  labels:
+    app: kubeorchestrator
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubeorchestrator
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: kubeorchestrator
+    spec:
+      serviceAccountName: kubeorchestrator-sa
+      containers:
+      - name: kubeorchestrator
+        image: kubeorchestrator:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: http
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "5000"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: kube-config
+          mountPath: /app/.kube
+          readOnly: true
+      volumes:
+      - name: kube-config
+        secret:
+          secretName: kubeorchestrator-kubeconfig
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubeorchestrator-sa
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubeorchestrator-role
+rules:
+- apiGroups: [""]
+  resources: ["nodes", "pods", "services", "configmaps", "namespaces"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "statefulsets", "daemonsets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["networkpolicies"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["extensions"]
+  resources: ["ingresses"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeorchestrator-binding
+subjects:
+- kind: ServiceAccount
+  name: kubeorchestrator-sa
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: kubeorchestrator-role
+  apiGroup: rbac.authorization.k8s.io
