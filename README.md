@@ -81,7 +81,7 @@ This home lab project implements a practical microservices architecture using Ku
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/home-lab.git
+git clone https://github.com/tanujp99/home-lab.git
 cd home-lab
 ```
 
