@@ -1,158 +1,151 @@
-# KubeOrchestrator
+# Home Lab
 
-KubeOrchestrator is an advanced Kubernetes cluster management and visualization platform with CI/CD integration and resource optimization capabilities. It provides a unified dashboard for monitoring, managing, and optimizing Kubernetes infrastructure across multiple clusters.
+A practical, production-ready home lab environment that demonstrates real-world Kubernetes deployment and management skills. This project showcases the implementation of a modern, containerized application stack with proper monitoring, security, and CI/CD practices.
 
-![KubeOrchestrator Dashboard](./screenshots/dashboard.png)
+## Project Overview
 
-## Features
+This home lab project implements a practical microservices architecture using Kubernetes, focusing on real-world scenarios and best practices. The project includes:
 
-### 🔍 Comprehensive Cluster Visibility
-- **Real-time monitoring** of nodes, pods, deployments, and services
-- **Dynamic network topology visualization** showing infrastructure connections
-- **Resource utilization metrics** for CPU, memory, storage, and network
-- **Service mesh visualization** for microservices architecture
-
-### 🚀 DevOps & CI/CD Integration
-- **GitLab CI/CD pipeline integration** for continuous deployment visualization
-- **Deployment tracking** with status monitoring and rollback capabilities
-- **Canary and blue-green deployment** support with traffic steering
-
-### 🔒 Security & Compliance
-- **Network policy visualization** to understand security boundaries
-- **Real-time security alerts** for policy violations and potential threats
-- **Compliance monitoring** for industry standards and custom policies
-
-### ⚙️ Resource Optimization
-- **Cost optimization recommendations** based on actual resource usage
-- **Automated scaling suggestions** to improve resource utilization
-- **Performance bottleneck detection** with actionable improvements
-
-### 🔔 Monitoring & Alerts
-- **Real-time alerts** for cluster and application issues
-- **Customizable dashboards** for different stakeholders
-- **Historical data analysis** for trend identification and capacity planning
-
-## Technology Stack
-
-### Frontend
-- **React** with TypeScript for type safety and improved developer experience
-- **TailwindCSS** with shadcn/ui components for a modern, responsive UI
-- **Recharts & D3.js** for interactive data visualizations
-- **WebSockets** for real-time updates from the Kubernetes clusters
-
-### Backend
-- **Node.js** with Express for API services
-- **WebSockets** for real-time communication with the frontend
-- **Kubernetes API** integration for cluster management
-
-### Infrastructure
-- **Kubernetes** as the target platform for management
-- **Istio/Calico** for service mesh and network policy visualization
-- **Prometheus & Grafana** data sources for metrics and monitoring
+- A modern web application with a React frontend and Node.js backend
+- Real-time data processing using public APIs
+- Comprehensive monitoring and logging
+- Automated CI/CD pipeline
+- Security best practices implementation
 
 ## Architecture
 
-KubeOrchestrator follows a modern, microservices-based architecture:
+### Infrastructure
+- **Kubernetes Cluster**: 3-node cluster (1 control plane, 2 workers)
+- **Network**: Calico CNI for network policies and security
+- **Storage**: Local persistent storage with proper backup strategies
+- **Monitoring**: Prometheus + Grafana for metrics and visualization
+- **Logging**: ELK Stack (Elasticsearch, Logstash, Kibana)
 
-1. **Frontend Layer** - React-based SPA that communicates with the backend API
-2. **API Layer** - RESTful API services for data retrieval and management actions
-3. **WebSocket Layer** - Real-time communication channel for live updates
-4. **Integration Layer** - Connectors to Kubernetes API, CI/CD systems, and monitoring tools
-5. **Storage Layer** - Persistence for user preferences, historical data, and configurations
+### Application Stack
+- **Frontend**: React + TypeScript + TailwindCSS
+- **Backend**: Node.js + Express
+- **Database**: PostgreSQL
+- **Cache**: Redis
+- **Message Queue**: RabbitMQ
 
-## Real-World Applications
+## Key Features
 
-KubeOrchestrator addresses critical challenges faced by organizations running Kubernetes in production:
+### 1. Real-time Weather Dashboard
+- Integrates with OpenWeatherMap API
+- Displays weather data for multiple locations
+- Implements caching for API responses
+- Shows historical weather trends
 
-1. **Operational Visibility** - Provides a unified view of complex Kubernetes environments, reducing time to identify issues
-2. **Cost Management** - Identifies underutilized resources and provides optimization recommendations, reducing cloud spending
-3. **Security Enforcement** - Visualizes and enforces network policies, preventing security breaches
-4. **DevOps Acceleration** - Streamlines deployment workflows and provides visibility into CI/CD pipelines
-5. **Cross-team Collaboration** - Unified dashboard for developers, operations, and security teams
+### 2. Smart Home Integration
+- Connects with Home Assistant API
+- Controls and monitors smart devices
+- Implements secure authentication
+- Provides real-time device status
+
+### 3. Media Management
+- Personal media server capabilities
+- Automatic metadata fetching
+- Content organization and streaming
+- Backup and synchronization features
+
+## Technical Implementation
+
+### Security
+- Network policies using Calico
+- TLS encryption for all services
+- Role-based access control (RBAC)
+- Regular security updates and patches
+
+### Monitoring
+- Resource usage tracking
+- Application performance monitoring
+- Alert system for critical events
+- Custom Grafana dashboards
+
+### CI/CD Pipeline
+- GitLab CI/CD integration
+- Automated testing
+- Blue-green deployments
+- Rollback capabilities
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+ and npm
-- Access to a Kubernetes cluster (local or remote)
-- Kubernetes configuration file with appropriate permissions
+- 3x HP Spectre SFF PCs (or similar hardware)
+- Ubuntu 20.04 LTS
+- Minimum 8GB RAM per node
+- 256GB SSD per node
+- Stable network connection
 
 ### Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/kubeorchestrator.git
-   cd kubeorchestrator
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Configure your environment variables:
-   ```bash
-   cp .env.example .env
-   # Edit .env file with your configuration
-   ```
-
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-5. Access the application at http://localhost:5000
-
-### Connecting to Your Cluster
-
-1. Ensure your Kubernetes config file is properly set up
-2. Navigate to "Add Cluster" in the dashboard
-3. Provide cluster access details (endpoint, credentials, etc.)
-4. The dashboard will automatically connect and begin displaying data
-
-## Deployment
-
-### Docker Deployment
 ```bash
-# Build the Docker image
-docker build -t kubeorchestrator:latest .
-
-# Run the container
-docker run -p 5000:5000 -v ~/.kube:/app/.kube kubeorchestrator:latest
+git clone https://github.com/yourusername/home-lab.git
+cd home-lab
 ```
 
-### Kubernetes Deployment
+2. Set up the Kubernetes cluster:
 ```bash
-# Apply the deployment configuration
-kubectl apply -f k8s/deployment.yaml
-
-# Expose the service
-kubectl apply -f k8s/service.yaml
+./scripts/setup-cluster.sh
 ```
 
-## Roadmap
+3. Deploy the base infrastructure:
+```bash
+kubectl apply -f k8s/base/
+```
 
-- **Multi-cluster federation** management
-- **Machine learning-based** anomaly detection and predictive scaling
-- **Gitops workflow** integration
-- **Extended API** for third-party integrations
-- **Mobile application** for on-the-go monitoring
+4. Deploy the applications:
+```bash
+kubectl apply -f k8s/apps/
+```
 
-## Contributing
+5. Access the dashboard:
+```bash
+kubectl port-forward svc/dashboard 8080:80
+```
 
-We welcome contributions from the community! Please review our [contributing guidelines](CONTRIBUTING.md) before submitting pull requests.
+## Project Structure
 
-## License
+```
+home-lab/
+├── k8s/                    # Kubernetes manifests
+│   ├── base/              # Base infrastructure
+│   ├── apps/              # Application deployments
+│   └── monitoring/        # Monitoring stack
+├── apps/                  # Application source code
+│   ├── frontend/         # React frontend
+│   ├── backend/          # Node.js backend
+│   └── services/         # Microservices
+├── scripts/              # Automation scripts
+├── docs/                 # Documentation
+└── terraform/            # Infrastructure as Code
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Development Workflow
 
-## Acknowledgements
+1. **Local Development**
+   - Use minikube for local testing
+   - Implement features in feature branches
+   - Write tests for new functionality
 
-- [Kubernetes](https://kubernetes.io/) - The platform that inspired this project
-- [Istio](https://istio.io/) - For service mesh capabilities
-- [Prometheus](https://prometheus.io/) - For metrics collection
-- [Calico](https://www.tigera.io/project-calico/) - For network policy implementation
+2. **CI/CD Process**
+   - Push to feature branch
+   - Automated tests run
+   - Code review process
+   - Merge to main branch
+   - Automated deployment
 
----
+3. **Monitoring and Maintenance**
+   - Regular health checks
+   - Performance monitoring
+   - Security updates
+   - Backup verification
 
-Built with ❤️ for the Kubernetes community
+## Acknowledgments
+
+- [Kubernetes](https://kubernetes.io/)
+- [Calico](https://www.tigera.io/project-calico/)
+- [Prometheus](https://prometheus.io/)
+- [Grafana](https://grafana.com/)
+- [Home Assistant](https://www.home-assistant.io/)

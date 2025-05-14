@@ -1,0 +1,41 @@
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: home-lab-default-deny
+  namespace: home-lab
+spec:
+  selector: all()
+  types:
+  - Ingress
+  - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: home-lab-allow-internal
+  namespace: home-lab
+spec:
+  selector: all()
+  ingress:
+  - action: Allow
+    source:
+      selector: all()
+      namespaceSelector: name == 'home-lab'
+  egress:
+  - action: Allow
+    destination:
+      selector: all()
+      namespaceSelector: name == 'home-lab'
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: home-lab-allow-external
+  namespace: home-lab
+spec:
+  selector: app in ('weather-dashboard', 'smart-home', 'media-server')
+  egress:
+  - action: Allow
+    destination:
+      notSelector: all()
+      notNamespaceSelector: name == 'home-lab' 

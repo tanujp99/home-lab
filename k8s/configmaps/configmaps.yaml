@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smart-home-config
+  namespace: home-lab
+data:
+  home-assistant-url: "http://home-assistant:8123"
+  default-location: "home"
+  update-interval: "60"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: weather-dashboard-config
+  namespace: home-lab
+data:
+  default-locations: |
+    - name: "Home"
+      lat: "40.7128"
+      lon: "-74.0060"
+    - name: "Work"
+      lat: "40.7589"
+      lon: "-73.9851"
+  update-interval: "300"
+  cache-duration: "3600"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: media-server-config
+  namespace: home-lab
+data:
+  allowed-extensions: "mp4,mkv,avi,mov,jpg,png"
+  max-upload-size: "2G"
+  thumbnail-size: "320x180"
+  scan-interval: "3600" 
