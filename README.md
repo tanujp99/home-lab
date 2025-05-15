@@ -2,6 +2,8 @@
 
 A practical, production-ready home lab environment that demonstrates real-world Kubernetes deployment and management skills. This project showcases the implementation of a modern, containerized application stack with proper monitoring, security, and CI/CD practices.
 
+![Home Lab Dashboard](docs/image.jpeg)
+
 ## Project Overview
 
 This home lab project implements a practical microservices architecture using Kubernetes, focusing on real-world scenarios and best practices. The project includes:
@@ -11,6 +13,16 @@ This home lab project implements a practical microservices architecture using Ku
 - Comprehensive monitoring and logging
 - Automated CI/CD pipeline
 - Security best practices implementation
+
+## Documentation
+
+For detailed information about the project, please refer to the following documentation:
+
+- [Setup Guide](docs/SETUP_GUIDE.md) - Complete setup instructions
+- [Operations Guide](docs/OPERATIONS.md) - Day-to-day operations and maintenance
+- [Architecture Overview](docs/ARCHITECTURE.md) - Detailed system architecture
+- [Security Guide](docs/SECURITY.md) - Security implementation details
+- [Monitoring Guide](docs/MONITORING.md) - Monitoring and alerting setup
 
 ## Architecture
 
